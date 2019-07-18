@@ -1,0 +1,29 @@
+pipeline{
+    agent any
+    tools{
+        maven 'M3'
+    }
+    stages{
+        stage('git'){
+            steps{
+                script{
+                    git 'https://github.com/chandrakiran88/deploy.git'
+                }
+            }
+        }
+        stage('build'){
+            steps{
+                script{
+                    bat 'mvn clean install -DskipTests'
+                }
+            }
+        }
+        stage('deploy'){
+            steps{
+                script{
+                    bat 'copy C:\\Program Files (x86)\\Jenkins\\workspace\\pipeline1\\target\\spring-boot-example2-0.0.1-SNAPSHOT.war C:\\Users\\Aarija\\Downloads\\tomcat\\apache-tomcat-9.0.21\\webapps'
+                }
+            }
+        }
+    }
+}
